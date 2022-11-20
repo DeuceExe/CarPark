@@ -207,8 +207,9 @@ fun requestOrderInformation(orderList: ArrayList<OrderModel>) {
     for (n in orderList.indices) {
         println(
             "Direction from ${orderList[n].startPoint} to ${orderList[n].endPoint}, " +
-                    "weight ${orderList[n].weight}, car type - ${orderList[n].carType}, number of passengers - " +
-                    "${orderList[n].numberOfPassengers}, handling operations - ${orderList[n].loadUnloadCargo}"
+            "weight ${orderList[n].weight}, car type - ${orderList[n].carType}, " +
+            "number of passengers - " + "${orderList[n].numberOfPassengers}, handling operations - " +
+            "${orderList[n].loadUnloadCargo}"
         )
     }
 }
