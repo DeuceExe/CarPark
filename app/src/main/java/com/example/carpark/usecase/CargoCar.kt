@@ -9,26 +9,7 @@ class CargoCar(brand: String, model: String) : BaseCar(CarType.Cargo, brand, mod
         return super.fillTheTank()
     }
 
-    override fun repairCar(): String {
-        return super.repairCar()
-    }
-    
-    fun sealingTheBody() {
+    override fun repairCar() = super.repairCar()
 
-    }
-
-
-//    fun sortActivityByBodyType(cargoBodyType: CargoBodyType) {
-//        when (cargoBodyType) {
-//            CargoBodyType.Curtain -> {
-//
-//            }
-//            CargoBodyType.Tank -> {
-//
-//            }
-//            CargoBodyType.Refrigerator -> {
-//
-//            }
-//        }
-//    }
+    fun sealingTheBody() {}
 }

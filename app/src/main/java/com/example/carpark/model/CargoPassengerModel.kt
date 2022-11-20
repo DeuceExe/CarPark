@@ -5,4 +5,4 @@ data class CargoPassengerModel(
     val freeLoadCapacity: Double,
     val volume: Double,
     val passengerCapacity: Int
-    )
+)
