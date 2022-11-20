@@ -63,7 +63,9 @@ fun main(){
     requestOrderInformation(orderList)
     addCargoCarOrder(cargoCarPark, orderList)
     addCargoPassengerCarOrder(cargoPassengerPark, orderList)
-    transferOrder(passengerCarPark, passengerCarPark)
+    transferPassengerOrder(passengerCarPark[0], passengerCarPark[1])
+    //transferCargoOrder()
+    //transferCargoPassengerOrder()
 }
 
 fun addCargoCarOrder(car: Array<CargoCarModel>, order: ArrayList<OrderModel>){
@@ -123,13 +125,45 @@ fun addCargoPassengerCarOrder(car: Array<CargoPassengerModel>, order: ArrayList<
     }
 }
 
-fun transferOrder(carOrderFrom: Array<PassengerCarModel>, carOrderTo: Array<PassengerCarModel>){
-    for(orderFrom in carOrderFrom.indices){
-        for(orderTo in carOrderTo.indices){
-            if(orderFrom != orderTo && carOrderTo[orderTo].generalParameters.carBody == carOrderFrom[orderFrom].generalParameters.carBody
-                && carOrderTo[orderTo].passengerCapacity >= carOrderFrom[orderFrom].passengerCapacity){
+fun transferPassengerOrder(carOrderFrom: PassengerCarModel, carOrderTo: PassengerCarModel){
+    for(orderCounter in carOrderFrom.generalParameters.orderList.indices){
+        val passengers = carOrderFrom.generalParameters.orderList[orderCounter].numberOfPassengers
+        if(carOrderFrom.generalParameters.orderList.isNotEmpty() && passengers != null &&
+            carOrderTo.passengerCapacity >= passengers) {
+            carOrderTo.generalParameters.orderList += carOrderFrom.generalParameters.orderList
+            carOrderFrom.generalParameters.orderList.drop(orderCounter)
+        } else{
+            println("The Car does not meet the requirements")
+        }
+    }
+}
 
-            }
+fun transferCargoOrder(carOrderFrom: CargoCarModel, carOrderTo: CargoCarModel){
+    for(orderCounter in carOrderFrom.generalParameters.orderList.indices){
+        val weight = carOrderFrom.generalParameters.orderList[orderCounter].weight
+        val volume = carOrderFrom.generalParameters.orderList[orderCounter].volume
+        if(carOrderFrom.generalParameters.orderList.isNotEmpty() && weight != null && volume != null &&
+            carOrderTo.freeLoadCapacity >= weight && carOrderTo.volume >= volume) {
+            carOrderTo.generalParameters.orderList += carOrderFrom.generalParameters.orderList
+            carOrderFrom.generalParameters.orderList.drop(orderCounter)
+        } else{
+            println("The Car does not meet the requirements")
+        }
+    }
+}
+
+fun transferCargoPassengerOrder(carOrderFrom: CargoPassengerModel, carOrderTo: CargoPassengerModel){
+    for(orderCounter in carOrderFrom.generalParameters.orderList.indices){
+        val passengers = carOrderFrom.generalParameters.orderList[orderCounter].numberOfPassengers
+        val weight = carOrderFrom.generalParameters.orderList[orderCounter].weight
+        val volume = carOrderFrom.generalParameters.orderList[orderCounter].volume
+        if(carOrderFrom.generalParameters.orderList.isNotEmpty() && passengers != null &&
+            weight != null && volume != null && carOrderTo.passengerCapacity >= passengers &&
+            carOrderTo.freeLoadCapacity >= weight && carOrderTo.volume >= volume) {
+            carOrderTo.generalParameters.orderList += carOrderFrom.generalParameters.orderList
+            carOrderFrom.generalParameters.orderList.drop(orderCounter)
+        } else{
+            println("The Car does not meet the requirements")
         }
     }
 }
@@ -138,8 +172,8 @@ fun requestOrderInformation(orderList: ArrayList<OrderModel>) {
     for (n in orderList.indices) {
         println(
             "Direction from ${orderList[n].startPoint} to ${orderList[n].endPoint}, " +
-                    "weight ${orderList[n].weight}, car type - ${orderList[n].carType}, number of passengers - " +
-                    "${orderList[n].numberOfPassengers}, handling operations - ${orderList[n].loadUnloadCargo}"
+            "weight ${orderList[n].weight}, car type - ${orderList[n].carType}, number of passengers - " +
+            "${orderList[n].numberOfPassengers}, handling operations - ${orderList[n].loadUnloadCargo}"
         )
     }
 }
