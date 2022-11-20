@@ -9,11 +9,7 @@ class PassengerCar(brand: String, model: String) : BaseCar(CarType.Passenger, br
         return super.fillTheTank()
     }
 
-    override fun repairCar(): String {
-        return super.repairCar()
-    }
+    override fun repairCar() = super.repairCar()
 
-    fun disinfectTheSalon(){
-
-    }
+    fun disinfectTheSalon() {}
 }

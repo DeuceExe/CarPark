@@ -4,4 +4,4 @@ data class CargoCarModel(
     val generalParameters: GeneralCarParameterModel,
     val freeLoadCapacity: Double,
     val volume: Double
-    )
+)
